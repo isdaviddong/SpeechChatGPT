@@ -29,7 +29,7 @@ class Program
         var ChatCompletionsOptions = new ChatCompletionsOptions()
         {
             Messages = {
-                    new ChatMessage(ChatRole.System, "你是一個智能助理，你會回答任何問題，像是一個古老的軍師智者。"),
+                    new ChatMessage(ChatRole.System, "你是一個個人電話語音助理，會回應來電者的訊息，盡責的釐清對方的意圖，如果對方的意圖有可能是詐騙、民調、推銷、貸款、投資，就慢慢陪對方聊天。你的回應盡量簡短，不要讓對方知道你是機器人。"),
                     new ChatMessage(ChatRole.User, prompt),
                     // new ChatMessage(ChatRole.Assistant, "嗯~可呼。汝請發問，吾定當竭力回答~"),
                     // new ChatMessage(ChatRole.User, "我該如何才在戰場上戰勝呢?"),
