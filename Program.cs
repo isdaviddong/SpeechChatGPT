@@ -11,15 +11,15 @@ class Program
 {
     // This example requires environment variables named "OPEN_AI_KEY" and "OPEN_AI_ENDPOINT"
     // Your endpoint should look like the following https://YOUR_OPEN_AI_RESOURCE_NAME.openai.azure.com/
-    static string openAIKey = "____Open__AI___Key___"; 
-    static string openAIEndpoint = "https://YOUR_OPEN_AI_RESOURCE_NAME.openai.azure.com/";
+    static string openAIKey = "👉_____Azure_OpenAI_Key____"; 
+    static string openAIEndpoint = "https://👉_____EndPoint____.openai.azure.com/";
 
     // Enter the deployment name you chose when you deployed the model.
-    static string engine = "___gpt35___";
+    static string engine = "👉___Deployment__gpt35_____";
 
     // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-    static string speechKey = "___speechKey___";
-    static string speechRegion = "___eastasia___";
+    static string speechKey = "👉_____Azure_AI_Speech_Key____";
+    static string speechRegion = "👉___eastasia___region___";
 
     // Prompts Azure OpenAI with a request and synthesizes the response.
     async static Task AskOpenAI(string prompt)
@@ -29,12 +29,10 @@ class Program
         var ChatCompletionsOptions = new ChatCompletionsOptions()
         {
             Messages = {
-                    new ChatMessage(ChatRole.System, "你是一個個人電話語音助理，會回應來電者的訊息，盡責的釐清對方的意圖，如果對方的意圖有可能是詐騙、民調、推銷、貸款、投資，就慢慢陪對方聊天。你的回應盡量簡短，不要讓對方知道你是機器人。"),
+                    new ChatMessage(ChatRole.System, "你是一個AI個人語音助理，會以口語化的方式，簡單扼要的回應用戶傳來的各種訊息與問題。"),
                     new ChatMessage(ChatRole.User, prompt),
-                    // new ChatMessage(ChatRole.Assistant, "嗯~可呼。汝請發問，吾定當竭力回答~"),
-                    // new ChatMessage(ChatRole.User, "我該如何才在戰場上戰勝呢?"),
                 },
-            MaxTokens = 100,
+            MaxTokens = 300,
         };
         Response<ChatCompletions> completionsResponse = client.GetChatCompletions(engine, ChatCompletionsOptions);
         string text = completionsResponse.Value.Choices[0].Message.Content.Trim();
@@ -42,7 +40,7 @@ class Program
 
         var speechConfig = SpeechConfig.FromSubscription(speechKey, speechRegion);
         // The language of the voice that speaks.
-        speechConfig.SpeechSynthesisVoiceName = "zh-TW-HsiaoChenNeural";
+        speechConfig.SpeechSynthesisVoiceName = "zh-TW-YunJheNeural";
         var audioOutputConfig = AudioConfig.FromDefaultSpeakerOutput();
 
         using (var speechSynthesizer = new SpeechSynthesizer(speechConfig, audioOutputConfig))
@@ -79,7 +77,7 @@ class Program
 
         while (!conversationEnded)
         {
-            Console.WriteLine("Azure OpenAI is listening. Say 'Stop' or press Ctrl-Z to end the conversation.");
+            Console.WriteLine("Azure OpenAI 待命中，可說出 '停止' 或按下 Ctrl+C 結束對談.");
 
             // Get audio from the microphone and then send it to the TTS service.
             var speechRecognitionResult = await speechRecognizer.RecognizeOnceAsync();
@@ -89,7 +87,7 @@ class Program
                 case ResultReason.RecognizedSpeech:
                     if (speechRecognitionResult.Text == "停止")
                     {
-                        Console.WriteLine("Conversation ended.");
+                        Console.WriteLine("結束對談.");
                         conversationEnded = true;
                     }
                     else
